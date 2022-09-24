@@ -2,7 +2,7 @@
 
 
 PREPARE(N) is a workflow for preprocessing resting-state electroencephalogram (rs-EEG) signals.
-PREPARE(N) stands for PREProcess + Anotate non-brain independent components + REject bad epochs + Normalize recording-specific variability (optional step)
+PREPARE(N) stands for PREProcess + Anotate non-brain independent components + REject bad epochs + Normalize recording-specific variability (optional step).
 
 This fully automated pipeline wraps multiple preprocessing tools, as follows:
 
@@ -13,12 +13,16 @@ This fully automated pipeline wraps multiple preprocessing tools, as follows:
 
 ## pyprep:
 Robust average re-referencing, adaptative line-noise correction, and bad channel interpolation were performed using a Python reimplementation of the MATLAB PREP pipeline [1] done by the authors of the PyPREP library [2]. 
+
 The goal of average re-referencing is to get a comparable reference scheme across datasets. Nevertheless, the average reference can be affected by noisy channels.
+
 Thus, the main goal of the PyPREP pipeline is to estimate a robust average reference by excluding these noisy channels from it.
 
 ## mne-icalabel:
 Of note, a 1 - 100 Hz band-pass Finite Impulse Response (FIR) filter is used prior to Independent component analysis (ICA) to remove low-frequency drifts that would affect the ICA solutions.
+
 ICA artifact correction is carried out using the FastICA algorithm, available at the MNE library [3].
+
 Then, the Python implementation of ICLabel is used to annotate artifactual and brain components for subsequent automatical rejection (low-pass filter is used following the original ICLabel implementation) [4].
 
 ## epochs rejection:
@@ -26,6 +30,7 @@ Afterward, length of the epochs is defined and automatic rejection of artifactua
 
 ## normalization of channel amplitude vector (optional step):
 Finally, to model the variability by a recording-specific scaling factor and to “normalize” each recording by dividing its channel data by a recording-specific constant (Huber mean), with a Python implementation of previously published methods [6].
+
 Of note, this last step is not recommended if the user will extract relative features from the rs-EEG (such as relative power, and relative power spectral density).
 
 
