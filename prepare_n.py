@@ -1,4 +1,5 @@
-# Adapted by Alberto Jaramillo-Jimenez from https://github.com/arnodelorme/eeg_pipelines/blob/master/mne/process_mne_template.py
+# Adapted by Alberto Jaramillo-Jimenez from https://github.com/arnodelorme/eeg_pipelines/blob/master/mne/process_mne_template.py 
+# This code wraps up sample codes from @yjmantilla, as well as pyprep, mne-icalabel, and autoreject documentation examples
 
 import mne
 import os
@@ -32,7 +33,16 @@ def mne_open(filename):
     else:
         return None
 
-
+      
+def get_derivative_path(layout,eeg_file,output_entity,suffix,output_extension,bids_root,derivatives_root):
+    entities = layout.parse_file_entities(eeg_file)
+    derivative_path = eeg_file.replace(bids_root,derivatives_root)
+    derivative_path = derivative_path.replace(entities['extension'],'')
+    derivative_path = derivative_path.split('_')
+    desc = 'desc-' + output_entity
+    derivative_path = derivative_path[:-1] + [desc] + [suffix]
+    derivative_path = '_'.join(derivative_path) + output_extension 
+    return derivative_path
       
       
 dataset={
@@ -159,9 +169,21 @@ ar.fit(reconst_epochs)
 epochs_ar, reject_log = ar.transform(reconst_epochs, return_log=True)
 
 
-# To discuss...
+# Ver si se puede wrappear el pedazo de la normalización de Nima en este código que sería full libre
 # Normalization of recording-specific variability (optional)
+
+
+
+
 # Export preprocessed data
-# USE PYBIDS TO GENERATE THE DERIVATIVES PATH
+eeg_file = eeg_file.replace('\\','/')
+derivatives_root = os.path.join(layout.root,'derivatives/prepare/')
+description = layout.get_dataset_description()
+
+
+reject_path = get_derivative_path(layout,eeg_file,'rechazado_test','eeg','.fif',bids_root,derivatives_root)
+
+
+epochs_ar.save(reject_path, split_naming='bids', overwrite=True)
 
   
