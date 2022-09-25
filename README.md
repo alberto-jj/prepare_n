@@ -1,5 +1,5 @@
 # prepare_n
-
+The ```prepare_n.py``` code was written by [@alberto-jj](https://github.com/alberto-jj) and [@yjmantilla](https://github.com/yjmantilla).
 
 PREPARE(N) is a workflow for preprocessing resting-state electroencephalogram (rs-EEG) signals.
 
@@ -42,11 +42,6 @@ As recommended by autoreject authors, a second rejection after ICA is recommende
 Finally, to model the variability by a recording-specific scaling factor and to “normalize” each recording by dividing its channel data by a recording-specific constant (Huber mean), with a Python implementation of previously published methods [6].
 
 Of note, this last step is not recommended if the user will extract relative features from the rs-EEG (such as relative power, and relative power spectral density).
-
-
-
-
-
 
 
 
