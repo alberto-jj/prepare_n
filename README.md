@@ -32,6 +32,7 @@ ICA artifact correction is carried out using the FastICA algorithm, available at
 
 Then, the Python implementation of ICLabel is used to annotate artifactual and brain components for subsequent automatical rejection (low-pass filter is used following the original ICLabel implementation) [5].
 
+Following mne-icalabel recommendation, this pipeline keeps components from "brain" as well as "others" as we cannot blindly exclude the latter (i.e. neural activity cannot be ruled out in those components annotated as "others"), see mne-icalabel documentation for details [5].
 
 ## post ICA epochs rejection:
 As recommended by autoreject authors, a second rejection after ICA is recommended to avoid non-typical ocular artifacts (not dropped in ICA)  [3].
