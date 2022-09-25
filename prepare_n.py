@@ -136,15 +136,35 @@ ar.fit(epochs)
 epochs_ar, reject_log = ar.transform(epochs, return_log=True)
 
 
-
-# Compute FastICA 
+# Compute extended infomax ICA
 filt_epochs = epochs_ar.copy().filter(l_freq=1.0, h_freq=100.0) # bandpassing 100 Hz (as in the MATLAB implementation of ICLabel)
 ica = ICA(
     n_components=15,
     max_iter="auto",
-    method="fastica",
-    random_state=97)
+    method="infomax",
+    random_state=97,
+    fit_params=dict(extended=True))
+
+
+# Compute FastICA can be used if desired, here. MATLAB ICLabel implementation is based on extended infomax as above
+# ica = ICA(
+#     n_components=15,
+#     max_iter="auto",
+#     method="fastica",
+#     random_state=97)
+# Fit ICA model
 ica.fit(filt_epochs)
+
+# Annotate using mne-icalabel
+ic_labels = label_components(filt_epochs, ica, method="iclabel")
+labels = ic_labels["labels"]
+exclude_idx = [idx for idx, label in enumerate(labels) if label not in ["brain", "other"]] # a conservative approach suggested in mne-icalabel
+print(f"Excluding these ICA components: {exclude_idx}")
+
+# ica.apply() changes the Raw object in-place, so let's make a copy first:
+reconst_epochs = epochs.copy()
+ica.apply(reconst_epochs, exclude=exclude_idx)
+
 
 # Annotate using mne-icalabel
 ic_labels = label_components(filt_epochs, ica, method="iclabel")
@@ -167,7 +187,7 @@ ar.fit(reconst_epochs)
 epochs_ar, reject_log = ar.transform(reconst_epochs, return_log=True)
 
 
-# Ver si se puede wrappear el pedazo de la normalización de Nima en este código que sería full libre
+# Conversar si se puede wrappear el pedazo de la normalización de Nima en este código (que sí sería full libre)
 # Normalization of recording-specific variability (optional)
 
 
