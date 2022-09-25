@@ -3,9 +3,7 @@
 
 import mne
 import os
-import sys
 import autoreject
-import numpy as np
 import bids
 from mne.datasets.eegbci import standardize
 from mne.preprocessing import ICA
