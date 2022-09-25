@@ -28,7 +28,7 @@ Afterward, length of the epochs is defined and automatic rejection of artifactua
 ## mne-icalabel:
 Of note, a 1 - 100 Hz band-pass Finite Impulse Response (FIR) filter is used prior to Independent component analysis (ICA) to remove low-frequency drifts that would affect the ICA solutions.
 
-ICA artifact correction is carried out using the FastICA algorithm, available at the MNE library [4].
+ICA artifact correction is carried out using the extended infomax ICA algorithm, available at the MNE library [4]. Code for FastICA method is also available, but the MATLAB original implementation of ICLabel was carried out using extended infomax. 
 
 Then, the Python implementation of ICLabel is used to annotate artifactual and brain components for subsequent automatical rejection (low-pass filter is used following the original ICLabel implementation) [5].
 
