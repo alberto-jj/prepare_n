@@ -2,6 +2,7 @@
 
 
 PREPARE(N) is a workflow for preprocessing resting-state electroencephalogram (rs-EEG) signals.
+
 PREPARE(N) stands for PREProcess + Anotate non-brain independent components + REject bad epochs + Normalize recording-specific variability (optional step).
 
 This fully automated pipeline wraps multiple preprocessing tools, as follows:
