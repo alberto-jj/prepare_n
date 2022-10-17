@@ -1,5 +1,7 @@
 # prepare_n
-The ```prepare_n.py``` code was written by [@alberto-jj](https://github.com/alberto-jj) and [@yjmantilla](https://github.com/yjmantilla).
+The ```prepare_n.py``` function was written by [@alberto-jj](https://github.com/alberto-jj) and [@yjmantilla](https://github.com/yjmantilla).
+
+You can find an example on the function ussage in the ```prepare.ipynb```.
 
 PREPARE(N) is a workflow for preprocessing resting-state electroencephalogram (rs-EEG) signals.
 
