@@ -3,7 +3,7 @@ The ```prepare_n.py``` code was written by [@alberto-jj](https://github.com/albe
 
 PREPARE(N) is a workflow for preprocessing resting-state electroencephalogram (rs-EEG) signals.
 
-PREPARE(N) stands for PREProcess + Anotate non-brain independent components + REject bad epochs + Normalize recording-specific variability (optional step).
+PREPARE(N) stands for (_PREP_)rocess + (_A_)notate non-brain independent components + (_RE_)ject bad epochs + (_N_)ormalize recording-specific variability (optional step).
 
 This fully automated pipeline wraps multiple preprocessing tools, as follows:
 
